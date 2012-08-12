@@ -5,23 +5,20 @@ def colorize(text, code)
   "\e[#{code}m#{text}\e[0m"
 end
 
-USERNAME  = 'chrishunt'
-DIR       = 'downloads'
+current_followers = Followers::TwitterClient.followers(TWITTER_USERNAME)
+puts "#{TWITTER_USERNAME} has #{current_followers.count} followers today"
 
-current_followers = TwitterClient.followers(USERNAME)
-puts "#{USERNAME} has #{current_followers.count} followers today"
-
-previous_followers = Dir["#{DIR}/*"].last
+previous_followers = Dir["#{DOWNLOAD_DIR}/*"].last
 
 if previous_followers
   previous_followers = JSON.parse(File.read(previous_followers))
 
-  lost = TwitterClient.users_lookup(
-    FollowersComparison.lost(previous_followers, current_followers)
+  lost = Followers::TwitterClient.users_lookup(
+    Followers::Comparison.lost(previous_followers, current_followers)
   ).map { |f| f['screen_name'] }
 
-  gained = TwitterClient.users_lookup(
-    FollowersComparison.gained(previous_followers, current_followers)
+  gained = Followers::TwitterClient.users_lookup(
+    Followers::Comparison.gained(previous_followers, current_followers)
   ).map { |f| f['screen_name'] }
 
   unless lost.empty?
