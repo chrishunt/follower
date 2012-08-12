@@ -32,5 +32,15 @@ if previous_followers
   end
 end
 
+unless lost.empty? && gained.empty?
+  print "\nOpen followers in browser? (y) "
+  answer = gets.chomp.downcase
+
+  if ['', 'y'].include?(answer)
+    urls = lost.push(gained).flatten.map { |user| "#{TWITTER_URL}/#{user}" }
+    system "open #{urls.join(' ')}"
+  end
+end
+
 filename  = "downloads/#{Time.now.strftime('%Y%m%d_%H%M%S')}.json"
 File.open(filename, 'w') { |f| f.write current_followers.to_json }
