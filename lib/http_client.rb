@@ -1,6 +1,7 @@
 require 'net/http'
 require 'uri'
 
+# Wrapper for Net::HTTP. Encodes params and passes in default headers
 class HttpClient
   attr_reader :host, :http
 
