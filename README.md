@@ -11,9 +11,8 @@ $ cd follower
 $ vi config/followers_config.rb
 ```
 
-To get started, edit the config file in `config/followers_config.rb` and update
-with your twitter username. By default, your twitter follower history will be
-saved in `./downloads`
+Edit the config file in `config/followers_config.rb` and update with your
+Twitter username.
 
 ```ruby
 TWITTER_URL      = 'https://twitter.com'
@@ -23,6 +22,10 @@ DOWNLOAD_DIR     = 'downloads'
 ```
 
 ## Running The Script
+
+Each time you run the update script, your followers will be downloaded in the
+download directory and compared against the last time you ran the script.
+You'll be notified if a user has started or stopped following you.
 
 ```
 $ ./update.rb
