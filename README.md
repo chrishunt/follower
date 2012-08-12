@@ -21,7 +21,7 @@ TWITTER_USERNAME = 'chrishunt'
 DOWNLOAD_DIR     = 'downloads'
 ```
 
-## Running The Script
+## Usage
 
 Each time you run the update script, your followers will be downloaded in the
 download directory and compared against the last time you ran the script.
