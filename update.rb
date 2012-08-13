@@ -37,15 +37,15 @@ if previous_followers
 
   print_comparison(:lost, lost) unless lost.empty?
   print_comparison(:gained, gained) unless gained.empty?
-end
 
-unless lost.empty? && gained.empty?
-  print "\nOpen followers in browser? (y) "
-  answer = gets.chomp.downcase
+  unless lost.empty? && gained.empty?
+    print "\nOpen followers in browser? (y) "
+    answer = gets.chomp.downcase
 
-  if ['', 'y'].include?(answer)
-    urls = lost.push(gained).flatten.map { |user| "#{TWITTER_URL}/#{user}" }
-    system "open #{urls.join(' ')}"
+    if ['', 'y'].include?(answer)
+      urls = lost.push(gained).flatten.map { |user| "#{TWITTER_URL}/#{user}" }
+      system "open #{urls.join(' ')}"
+    end
   end
 end
 
