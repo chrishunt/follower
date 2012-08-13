@@ -1,3 +1,3 @@
-require './config/followers_config'
+require './config/followers'
 require './lib/followers/twitter_client'
 require './lib/followers/comparison'

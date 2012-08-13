@@ -8,10 +8,10 @@ Keep track of who starts and stops following you on
 ```
 $ git clone https://github.com/chrishunt/follower.git
 $ cd follower
-$ vi config/followers_config.rb
+$ vi config/followers.rb
 ```
 
-Edit the config file in `config/followers_config.rb` and update with your
+Edit the config file in `config/followers.rb` and update with your
 Twitter username.
 
 ```ruby
