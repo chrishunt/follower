@@ -27,7 +27,7 @@ module Followers
     protected
 
     def http
-      @http ||= HttpClient.new(TWITTER_API)
+      @http ||= HttpClient.new(CONFIG.api)
     end
   end
 end

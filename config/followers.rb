@@ -1,4 +1,6 @@
-TWITTER_URL      = 'https://twitter.com'
-TWITTER_API      = 'https://api.twitter.com/1'
-TWITTER_USERNAME = 'chrishunt'
-DOWNLOAD_DIR     = 'downloads'
+CONFIG = OpenStruct.new(
+  :url       => 'https://twitter.com',
+  :api       => 'https://api.twitter.com/1',
+  :username  => 'chrishunt',
+  :downloads => 'downloads'
+).freeze

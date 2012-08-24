@@ -24,10 +24,10 @@ def print_comparison(comparison, followers)
   puts followers.join(', ')
 end
 
-current_followers = Followers::TwitterClient.followers(TWITTER_USERNAME)
-puts "#{TWITTER_USERNAME} has #{current_followers.count} followers today"
+current_followers = Followers::TwitterClient.followers(CONFIG.username)
+puts "#{CONFIG.username} has #{current_followers.count} followers today"
 
-previous_followers = Dir["#{DOWNLOAD_DIR}/*"].last
+previous_followers = Dir["#{CONFIG.downloads}/*"].last
 
 if previous_followers
   previous_followers = JSON.parse(File.read(previous_followers))
@@ -43,7 +43,7 @@ if previous_followers
     answer = gets.chomp.downcase
 
     if ['', 'y'].include?(answer)
-      urls = lost.push(gained).flatten.map { |user| "#{TWITTER_URL}/#{user}" }
+      urls = lost.push(gained).flatten.map { |user| "#{CONFIG.url}/#{user}" }
       system "open #{urls.join(' ')}"
     end
   end
