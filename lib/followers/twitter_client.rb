@@ -1,6 +1,3 @@
-require './lib/http_client'
-require 'json'
-
 module Followers
   module TwitterClient
     extend self

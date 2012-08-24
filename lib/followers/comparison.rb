@@ -1,5 +1,3 @@
-require 'json'
-
 module Followers
   module Comparison
     extend self
