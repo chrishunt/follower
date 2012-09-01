@@ -5,10 +5,10 @@ describe HttpClient do
 
   let(:headers) {{ 'Content-Type' => 'application/json' }}
   let(:url)     { 'http://example.com' }
-  let(:http)    { double('Net::HTTP').as_null_object }
+  let(:http)    { stub('Net::HTTP').as_null_object }
 
   before do
-    Net::HTTP.stub(:new => http)
+    stub_const('Net::HTTP', stub(new: http))
   end
 
   describe '#get' do
