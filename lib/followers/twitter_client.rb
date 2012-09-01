@@ -24,7 +24,7 @@ module Followers
     protected
 
     def http
-      @http ||= HttpClient.new(CONFIG.api)
+      HttpClient.new(CONFIG.api)
     end
   end
 end
