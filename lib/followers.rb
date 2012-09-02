@@ -1,9 +1,10 @@
 require 'net/http'
 require 'ostruct'
+require 'oauth'
 require 'json'
 require 'uri'
 
 require './config/followers'
-require './lib/http_client'
+require './lib/oauth_client'
 require './lib/followers/twitter_client'
 require './lib/followers/comparison'
