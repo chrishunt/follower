@@ -11,14 +11,15 @@ $ cd follower
 $ vi config/followers.rb
 ```
 
-Edit the config file in `config/followers.rb` and update with your
-Twitter username.
+Edit the config file in `config/followers.rb` and update with your Twitter
+username, api token, api secret, oauth token, and oauth secret.
 
 ```ruby
-TWITTER_URL      = 'https://twitter.com'
-TWITTER_API      = 'https://api.twitter.com/1'
-TWITTER_USERNAME = 'chrishunt'
-DOWNLOAD_DIR     = 'downloads'
+username:     'chrishunt',
+api_token:    'API_TOKEN',
+api_secret:   'API_SECRET',
+oauth_token:  'OAUTH_TOKEN',
+oauth_secret: 'OAUTH_SECRET'
 ```
 
 ## Usage
