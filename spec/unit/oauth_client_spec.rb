@@ -1,14 +1,24 @@
-require 'http_client'
+require 'oauth_client'
 
-describe HttpClient do
-  subject { HttpClient.new(url) }
+describe OauthClient do
+  subject { OauthClient.new(url, config) }
 
+  let(:url)  { 'http://example.com' }
+  let(:http) { stub }
   let(:headers) {{ 'Content-Type' => 'application/json' }}
-  let(:url)     { 'http://example.com' }
-  let(:http)    { stub('Net::HTTP').as_null_object }
+
+  let(:config) {
+    OauthClient::Config.new(
+      api_token:    'apitoken',
+      api_secret:   'apisecret',
+      oauth_token:  'oauthtoken',
+      oauth_secret: 'oauthsecret'
+  )}
 
   before do
-    stub_const('Net::HTTP', stub(new: http))
+    stub_const('OAuth::Consumer', stub.as_null_object)
+    stub_const('OAuth::AccessToken', stub.as_null_object)
+    subject.stub(http: http)
   end
 
   describe '#get' do

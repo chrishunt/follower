@@ -24,7 +24,12 @@ module Followers
     protected
 
     def http
-      HttpClient.new(CONFIG.api)
+      OauthClient.new(CONFIG.api, OauthClient::Config.new(
+        api_token:    CONFIG.api_token,
+        api_secret:   CONFIG.api_secret,
+        oauth_token:  CONFIG.oauth_token,
+        oauth_secret: CONFIG.oauth_secret
+      ))
     end
   end
 end
