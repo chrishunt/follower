@@ -7,8 +7,7 @@ describe Followers::TwitterClient do
   let(:http_client) { stub }
 
   before do
-    stub_const('CONFIG', stub(api: 'twitter.com'))
-    stub_const('HttpClient', stub(new: http_client))
+    Followers::TwitterClient.stub(http: http_client)
   end
 
   describe '.followers' do
@@ -32,7 +31,6 @@ describe Followers::TwitterClient do
       http_client.should_receive(:get).
         with(endpoint, user_id: ids.join(',')).
         and_return(stub(body: '[{"screen_name":"chrishunt"}]'))
-
 
       subject.users_lookup(ids).should == [{ 'screen_name' => 'chrishunt' }]
     end
