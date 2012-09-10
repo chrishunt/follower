@@ -8,6 +8,7 @@ Keep track of who starts and stops following you on
 ```
 $ git clone https://github.com/chrishunt/follower.git
 $ cd follower
+$ bundle exec db:migrate
 $ vi config/followers.rb
 ```
 
