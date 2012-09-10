@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+
+require 'pg'
 require './lib/followers'
 
 def colorize(text, code)
@@ -24,14 +26,19 @@ def print_comparison(comparison, followers)
   puts followers.join(', ')
 end
 
+db = PG.connect(dbname: CONFIG.database)
+
 current_followers = Followers::TwitterClient.followers(CONFIG.username)
 puts "#{CONFIG.username} has #{current_followers.count} followers today"
 
-previous_followers = Dir["#{CONFIG.downloads}/*"].last
+previous_followers = nil
+db.exec(
+  "SELECT user_ids FROM followers ORDER BY poll_time DESC LIMIT 1"
+).each do |result|
+  previous_followers = JSON.parse(result['user_ids'])
+end
 
 if previous_followers
-  previous_followers = JSON.parse(File.read(previous_followers))
-
   lost   = compare(:lost, previous_followers, current_followers)
   gained = compare(:gained, previous_followers, current_followers)
 
@@ -49,5 +56,9 @@ if previous_followers
   end
 end
 
-filename  = "downloads/#{Time.now.strftime('%Y%m%d_%H%M%S')}.json"
-File.open(filename, 'w') { |f| f.write current_followers.to_json }
+db.exec <<-SQL
+  INSERT INTO #{CONFIG.database} ( poll_time, user_ids )
+  VALUES ( '#{Time.now.to_s}', '#{current_followers.to_json}' )
+SQL
+
+db.close
