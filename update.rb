@@ -1,11 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'pg'
 require './lib/followers'
-
-def colorize(text, code)
-  "\e[#{code}m#{text}\e[0m"
-end
 
 def compare(comparison, previous, current)
   Followers::TwitterClient.users_lookup(
@@ -13,25 +8,20 @@ def compare(comparison, previous, current)
   ).map { |f| f['screen_name'] }
 end
 
-def print_comparison(comparison, followers)
-  lost = comparison == :lost
+log = Logger.new(CONFIG.log)
+log.info '' # blank line
+log.info Time.now
+log.info "Starting update..."
 
-  message  = "\n#{followers.count} users have "
-  message += lost ? 'stopped' : 'started'
-  message += ' following you '
-  message += lost ? ':(' : ':)'
-  color    = lost ? 31 : 32
+current_followers = Followers::TwitterClient.followers(CONFIG.username)
+log.info "Current followers: #{current_followers.count}"
 
-  puts colorize(message, color)
-  puts followers.join(', ')
-end
+previous_followers = nil
+lost = nil
+gained = nil
 
 db = PG.connect(dbname: CONFIG.database)
 
-current_followers = Followers::TwitterClient.followers(CONFIG.username)
-puts "#{CONFIG.username} has #{current_followers.count} followers today"
-
-previous_followers = nil
 db.exec(
   "SELECT user_ids FROM followers ORDER BY poll_time DESC LIMIT 1"
 ).each do |result|
@@ -42,18 +32,11 @@ if previous_followers
   lost   = compare(:lost, previous_followers, current_followers)
   gained = compare(:gained, previous_followers, current_followers)
 
-  print_comparison(:lost, lost) unless lost.empty?
-  print_comparison(:gained, gained) unless gained.empty?
-
-  unless lost.empty? && gained.empty?
-    print "\nOpen followers in browser? (y) "
-    answer = gets.chomp.downcase
-
-    if ['', 'y'].include?(answer)
-      urls = lost.push(gained).flatten.map { |user| "#{CONFIG.url}/#{user}" }
-      system "open #{urls.join(' ')}"
-    end
-  end
+  log.info "Previous followers: #{previous_followers.count}"
+  log.info "Lost: #{lost.count}"
+  log.info "Gained: #{gained.count}"
+else
+  log.info "No previous followers"
 end
 
 db.exec <<-SQL
@@ -62,3 +45,16 @@ db.exec <<-SQL
 SQL
 
 db.close
+
+if gained.count > 0 || lost.count > 0
+  log.info "Sending email..."
+
+  Mailer.followers(
+    CONFIG.username,
+    current_followers.count,
+    lost,
+    gained
+  ).deliver
+else
+  log.info "Not sending email"
+end

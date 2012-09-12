@@ -1,10 +1,18 @@
 CONFIG = OpenStruct.new(
-  url:          'https://twitter.com',
-  api:          'https://api.twitter.com/1',
-  username:     'chrishunt',
-  database:     'followers',
-  api_token:    'API_TOKEN',
-  api_secret:   'API_SECRET',
-  oauth_token:  'OAUTH_TOKEN',
-  oauth_secret: 'OAUTH_SECRET'
+  username:   'chrishunt',
+
+  url:        'https://twitter.com',
+  api:        'https://api.twitter.com/1',
+  api_token:  '',
+  api_secret: '',
+
+  oauth_token:  '',
+  oauth_secret: '',
+
+  deliver_email:  '',
+  gmail_username: '',
+  gmail_password: '',
+
+  database: 'followers',
+  log:  'log/followers.log'
 ).freeze

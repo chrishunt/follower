@@ -1,10 +1,13 @@
 require 'net/http'
 require 'ostruct'
+require 'logger'
 require 'oauth'
 require 'json'
 require 'uri'
+require 'pg'
 
 require './config/followers'
 require './lib/oauth_client'
 require './lib/followers/twitter_client'
 require './lib/followers/comparison'
+require './lib/mailer'
