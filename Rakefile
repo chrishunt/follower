@@ -8,6 +8,12 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = %w(--color --order random)
 end
 
+# Heroku runs this cron task hourly
+desc 'Update followers and send email'
+task :cron do
+  `ruby update.rb`
+end
+
 namespace :db do
   desc "Create #{CONFIG.database} database"
   task :migrate do
