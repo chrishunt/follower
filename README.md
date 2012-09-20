@@ -30,7 +30,7 @@ download directory and compared against the last time you ran the script.
 You'll be notified if a user has started or stopped following you.
 
 ```
-$ ./update.rb
+$ ./bin/update
 
 chrishunt has 201 followers today
 
