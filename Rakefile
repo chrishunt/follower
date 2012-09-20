@@ -11,7 +11,7 @@ end
 # Heroku runs this cron task hourly
 desc 'Update followers and send email'
 task :cron do
-  `ruby update.rb`
+  `ruby bin/update`
 end
 
 namespace :db do

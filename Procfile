@@ -1,1 +1,1 @@
-script: bundle exec ruby update.rb
+script: bundle exec ruby bin/update
