@@ -17,8 +17,8 @@ current_followers = Followers::TwitterClient.followers(CONFIG.username)
 log.info "Current followers: #{current_followers.count}"
 
 previous_followers = nil
-lost = nil
-gained = nil
+lost = []
+gained = []
 
 db = PG.connect(
   CONFIG.db_hostname, 5432, '', '',
