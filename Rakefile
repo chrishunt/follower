@@ -15,12 +15,17 @@ task :cron do
 end
 
 namespace :db do
-  desc "Create #{CONFIG.database} database"
+  desc "Create #{CONFIG.db_name} database"
   task :migrate do
     require 'pg'
 
-    PG.connect(dbname: CONFIG.database).exec <<-SQL
-      CREATE TABLE IF NOT EXISTS #{CONFIG.database} (
+    PG.connect(
+      CONFIG.db_hostname, 5432, '', '',
+      CONFIG.db_name,
+      CONFIG.db_username,
+      CONFIG.db_password
+    ).exec <<-SQL
+      CREATE TABLE IF NOT EXISTS #{CONFIG.db_name} (
         id SERIAL PRIMARY KEY,
         poll_time TIMESTAMP,
         user_ids TEXT
