@@ -14,5 +14,5 @@ CONFIG = OpenStruct.new(
   gmail_password: '',
 
   database: 'followers',
-  log:  'log/followers.log'
+  log:  STDOUT
 ).freeze
