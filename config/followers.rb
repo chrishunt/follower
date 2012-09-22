@@ -9,9 +9,9 @@ CONFIG = OpenStruct.new(
   oauth_token:  '',
   oauth_secret: '',
 
-  deliver_email:  '',
-  gmail_username: '',
-  gmail_password: '',
+  deliver_email:  ENV['FOLLOWERS_DELIVERY_EMAIL'],
+  gmail_username: ENV['FOLLOWERS_GMAIL_USERNAME'],
+  gmail_password: ENV['FOLLOWERS_GMAIL_PASSWORD'],
 
   database: 'followers',
   log:  STDOUT
