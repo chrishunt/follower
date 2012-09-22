@@ -13,6 +13,10 @@ CONFIG = OpenStruct.new(
   gmail_username: ENV['FOLLOWERS_GMAIL_USERNAME'],
   gmail_password: ENV['FOLLOWERS_GMAIL_PASSWORD'],
 
-  database: 'followers',
+  db_name: ENV['FOLLOWERS_DB_NAME'],
+  db_hostname: ENV['FOLLOWERS_DB_HOSTNAME'],
+  db_username: ENV['FOLLOWERS_DB_USERNAME'],
+  db_password: ENV['FOLLOWERS_DB_PASSWORD'],
+
   log:  STDOUT
 ).freeze

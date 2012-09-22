@@ -20,7 +20,11 @@ previous_followers = nil
 lost = nil
 gained = nil
 
-db = PG.connect(dbname: CONFIG.database)
+db = PG.connect(
+  CONFIG.db_hostname, 5432, '', '',
+  CONFIG.db_name,
+  CONFIG.db_username,
+  CONFIG.db_password )
 
 db.exec(
   "SELECT user_ids FROM followers ORDER BY poll_time DESC LIMIT 1"
@@ -40,7 +44,7 @@ else
 end
 
 db.exec <<-SQL
-  INSERT INTO #{CONFIG.database} ( poll_time, user_ids )
+  INSERT INTO #{CONFIG.db_name} ( poll_time, user_ids )
   VALUES ( '#{Time.now.to_s}', '#{current_followers.to_json}' )
 SQL
 
