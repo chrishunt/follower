@@ -27,7 +27,7 @@ db = PG.connect(
   CONFIG.db_password )
 
 db.exec(
-  "SELECT user_ids FROM followers ORDER BY poll_time DESC LIMIT 1"
+  "SELECT user_ids FROM #{CONFIG.db_name} ORDER BY poll_time DESC LIMIT 1"
 ).each do |result|
   previous_followers = JSON.parse(result['user_ids'])
 end
