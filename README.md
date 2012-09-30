@@ -3,45 +3,59 @@
 Keep track of who starts and stops following you on
 [Twitter](https://twitter.com).
 
-## Getting Started
+## Throw It On Heroku
+
+Checkout the project.
 
 ```
 $ git clone https://github.com/chrishunt/follower.git
-$ cd follower
-$ bundle exec db:migrate
-$ vi config/followers.rb
 ```
 
-Edit the config file in `config/followers.rb` and update with your Twitter
-username, api token, api secret, oauth token, and oauth secret.
+Update configuration `config/followers.rb` with your Twitter handle.
 
 ```ruby
-username:     'chrishunt',
-api_token:    'API_TOKEN',
-api_secret:   'API_SECRET',
-oauth_token:  'OAUTH_TOKEN',
-oauth_secret: 'OAUTH_SECRET'
+username: '...',
 ```
 
-## Usage
-
-Each time you run the update script, your followers will be downloaded in the
-download directory and compared against the last time you ran the script.
-You'll be notified if a user has started or stopped following you.
+Push project to Heroku.
 
 ```
-$ ./bin/update
-
-chrishunt has 201 followers today
-
-2 users have started following you :)
-bobmarley, rubyguy
-
-1 users have stopped following you :(
-javadude
-
-Open followers in browser? (y)
+$ heroku init
+$ git push heroku master
 ```
+
+Add PostgreSQL and Scheduler addons.
+
+```
+$ heroku addons:add heroku-postgresql:dev scheduler:standard
+```
+
+Add outgoing Gmail credentials to Heroku's for sending email.
+
+```
+$ heroku config:add FOLLOWERS_GMAIL_USERNAME= ...
+$ heroku config:add FOLLOWERS_GMAIL_PASSWORD= ...
+```
+
+Configure email address that will receive follower updates.
+
+```
+$ heroku config:add FOLLOWERS_DELIVERY_EMAIL= ...
+```
+
+Setup Heroku database.
+
+```
+$ heroku run rake db:migrate
+```
+
+Add an hourly update task on Heroku for `bin/update`.
+
+```
+$ heroku addons:open scheduler:standard
+```
+
+Done.
 
 ## Contributing
 
