@@ -15,17 +15,18 @@ task :cron do
 end
 
 namespace :db do
-  desc "Create #{CONFIG.db_name} database"
+  desc "Create followers table in the database"
   task :migrate do
     require 'pg'
 
     PG.connect(
-      CONFIG.db_hostname, 5432, '', '',
-      CONFIG.db_name,
-      CONFIG.db_username,
-      CONFIG.db_password
+      CONFIG.database.host,
+      CONFIG.database.port, '', '',
+      CONFIG.database.path[1..-1], # database name
+      CONFIG.database.user,
+      CONFIG.database.password
     ).exec <<-SQL
-      CREATE TABLE IF NOT EXISTS #{CONFIG.db_name} (
+      CREATE TABLE IF NOT EXISTS followers (
         id SERIAL PRIMARY KEY,
         poll_time TIMESTAMP,
         user_ids TEXT

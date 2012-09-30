@@ -21,13 +21,15 @@ lost = []
 gained = []
 
 db = PG.connect(
-  CONFIG.db_hostname, 5432, '', '',
-  CONFIG.db_name,
-  CONFIG.db_username,
-  CONFIG.db_password )
+  CONFIG.database.host,
+  CONFIG.database.port, '', '',
+  CONFIG.database.path[1..-1], # database name
+  CONFIG.database.user,
+  CONFIG.database.password
+)
 
 db.exec(
-  "SELECT user_ids FROM #{CONFIG.db_name} ORDER BY poll_time DESC LIMIT 1"
+  "SELECT user_ids FROM followers ORDER BY poll_time DESC LIMIT 1"
 ).each do |result|
   previous_followers = JSON.parse(result['user_ids'])
 end
@@ -44,7 +46,7 @@ else
 end
 
 db.exec <<-SQL
-  INSERT INTO #{CONFIG.db_name} ( poll_time, user_ids )
+  INSERT INTO followers ( poll_time, user_ids )
   VALUES ( '#{Time.now.to_s}', '#{current_followers.to_json}' )
 SQL
 
