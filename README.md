@@ -17,7 +17,7 @@ Update configuration `config/followers.rb` with your Twitter handle.
 username: '...',
 ```
 
-Push project to Heroku.
+Push to Heroku.
 
 ```
 $ heroku init
@@ -30,7 +30,7 @@ Add PostgreSQL and Scheduler addons.
 $ heroku addons:add heroku-postgresql:dev scheduler:standard
 ```
 
-Add outgoing Gmail credentials to Heroku's for sending email.
+Add outgoing Gmail credentials to Heroku's environment.
 
 ```
 $ heroku config:add FOLLOWERS_GMAIL_USERNAME= ...
@@ -43,7 +43,7 @@ Configure email address that will receive follower updates.
 $ heroku config:add FOLLOWERS_DELIVERY_EMAIL= ...
 ```
 
-Setup Heroku database.
+Migrate Heroku database.
 
 ```
 $ heroku run rake db:migrate
