@@ -5,7 +5,7 @@ require './lib/followers'
 def compare(comparison, previous, current)
   Followers::TwitterClient.users_lookup(
     Followers::Comparison.send(comparison, previous, current)
-  ).map { |f| f['screen_name'] }
+  )
 end
 
 log = Logger.new(CONFIG.log)
@@ -39,8 +39,8 @@ if previous_followers
   gained = compare(:gained, previous_followers, current_followers)
 
   log.info "Previous followers: #{previous_followers.count}"
-  log.info "Lost (#{lost.count}): #{lost.inspect}"
-  log.info "Gained (#{gained.count}): #{gained.inspect}"
+  log.info "Lost (#{lost.count}): #{lost.map { |f| f['screen_name'] }}"
+  log.info "Gained (#{gained.count}): #{gained.map { |f| f['screen_name'] }}"
 else
   log.info "No previous followers"
 end

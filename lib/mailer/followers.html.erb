@@ -1,16 +1,26 @@
 <%= @username %> now has <%= @total %> followers.
 
-<% [[@lost, 'stopped'], [@gained, 'started']].each do |followers| %>
-  <% if followers[0].size > 0 %>
+<% [[@lost, 'stopped'], [@gained, 'started']].each do |follower_set| %>
+  <% if follower_set[0].size > 0 %>
     <p>
-      <%= followers[0].size %> users have <%= followers[1] %> following you:
+      <%= follower_set[0].size %> users have
+      <%= follower_set[1] %> following you:
     </p>
-    <ul>
-      <% followers[0].each do |follower| %>
-        <li>
-          <%= "#{CONFIG.url}/#{follower}" %>
-        </li>
-      <% end %>
-    </ul>
+    <% follower_set[0].each do |follower| %>
+      <p style="background: #eee; padding: 10px; margin: 0 0 10px 0;">
+        <img
+          src="<%= follower['profile_image_url'] %>"
+          width="20"
+          height="20"
+          style="border: 1px solid #999;"
+        />
+        <a
+          href="<%= "#{CONFIG.url}/#{follower['screen_name']}" %>"
+          style="text-decoration: none; padding: 10px"
+        >
+          <%= follower['screen_name'] %>
+        </a>
+      </p>
+    <% end %>
   <% end %>
 <% end %>
