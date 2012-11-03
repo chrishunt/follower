@@ -1,23 +1,39 @@
-<%= @username %> now has <%= @total %> followers.
+<h2>
+  <%= @username %> now has <%= @total %> followers.
+</h2>
 
 <% [[@lost, 'stopped'], [@gained, 'started']].each do |follower_set| %>
-  <% if follower_set[0].size > 0 %>
-    <p>
-      <%= follower_set[0].size %> users have
-      <%= follower_set[1] %> following you:
-    </p>
-    <% follower_set[0].each do |follower| %>
-      <p style="background: #eee; padding: 10px; margin: 0 0 10px 0;">
+  <% followers = follower_set[0] %>
+  <% action    = follower_set[1] %>
+
+  <% if followers.size > 0 %>
+    <h3>
+      <%= followers.size %> users have <%= action %> following you.
+    </h3>
+    <% followers.each do |follower| %>
+      <p style="
+        background: <%= action == 'started' ? '#efe' : '#fee' %>;
+        padding: 10px;
+        margin: 0 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      ">
         <img
           src="<%= follower['profile_image_url'] %>"
-          width="20"
-          height="20"
-          style="border: 1px solid #999;"
-        />
+          width="40"
+          height="40"
+          style="
+            padding: 0;
+            margin: 0;
+        "/>
         <a
           href="<%= "#{CONFIG.url}/#{follower['screen_name']}" %>"
-          style="text-decoration: none; padding: 10px"
-        >
+          style="
+            text-decoration: none;
+            font-size: 60px;
+            color: #18e;
+            margin: 0 0 0 15px;
+        ">
           <%= follower['screen_name'] %>
         </a>
       </p>
