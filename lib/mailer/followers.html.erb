@@ -1,42 +1,84 @@
-<h2>
-  <%= @username %> now has <%= @total %> followers.
-</h2>
+<html>
+<body style="font-family: sans-serif">
+
+<p style="
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 10px 0 20px 0;
+  border-bottom: 1px solid #ccc;
+">
+  <%= @username %> has
+    <span style="font-weight: bold;"><%= @total %></span>
+  followers.
+</p>
 
 <% [[@lost, 'stopped'], [@gained, 'started']].each do |follower_set| %>
   <% followers = follower_set[0] %>
   <% action    = follower_set[1] %>
 
   <% if followers.size > 0 %>
-    <h3>
+    <p style="
+      font-size: 20px;
+      background-color: <%= action == 'started' ? '#0b0' : '#b00' %>;
+      padding: 10px;
+      border-radius: 10px;
+      color: #fff;
+      text-align: center;
+    ">
       <%= followers.size %> users have <%= action %> following you.
-    </h3>
+    </p>
+
     <% followers.each do |follower| %>
-      <p style="
-        background: <%= action == 'started' ? '#efe' : '#fee' %>;
+      <div style="
         padding: 10px;
-        margin: 0 0 15px 0;
-        border: 1px solid #ccc;
-        border-radius: 10px;
+        overflow: hidden;
+        border-bottom: 1px solid #ccc;
       ">
-        <img
+        <a href="<%= "#{CONFIG.url}/#{follower['screen_name']}" %>">
+          <img
           src="<%= follower['profile_image_url'] %>"
-          width="40"
-          height="40"
+          width="48"
+          height="48"
           style="
+            float: left;
+            width: 48px;
             padding: 0;
-            margin: 0;
-        "/>
-        <a
-          href="<%= "#{CONFIG.url}/#{follower['screen_name']}" %>"
-          style="
-            text-decoration: none;
-            font-size: 30px;
-            color: #18e;
-            margin: 0 0 0 15px;
-        ">
-          <%= follower['screen_name'] %>
+            margin: 0 15px 0 0;
+            border-radius: 5px;
+          "/>
         </a>
-      </p>
+        <div>
+          <a
+            href="<%= "#{CONFIG.url}/#{follower['screen_name']}" %>"
+            style="
+              color: #000;
+              text-decoration: none;
+              font-size: 18px;
+              font-weight: bold;
+            ">
+            <%= follower['name'] %>
+            <span style="
+              color: #888;
+              font-size: 80%;
+              font-weight: normal;
+            ">
+              @<%= follower['screen_name'] %>
+            </span>
+          </a>
+          <div style="
+            font-size: 90%;
+            display: block;
+            color: #888;
+            font-style: italic;
+          ">
+            <%= follower['description'] %>
+          </div>
+        </div>
+      </div>
     <% end %>
   <% end %>
 <% end %>
+
+</body>
+</html>
