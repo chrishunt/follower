@@ -5,51 +5,49 @@ Keep track of who starts and stops following you on
 
 ## Throw It On Heroku
 
-Checkout the project.
+Checkout the project:
 
-```
+```bash
 $ git clone https://github.com/chrishunt/follower.git
+$ cd follower
 ```
 
-Update configuration `config/followers.rb` with your Twitter handle.
+Push to Heroku:
 
-```ruby
-username: '...',
-```
-
-Push to Heroku.
-
-```
+```bash
 $ heroku init
 $ git push heroku master
 ```
 
-Add PostgreSQL and Scheduler addons.
+Add PostgreSQL and Scheduler addons:
 
-```
+```bash
 $ heroku addons:add heroku-postgresql:dev scheduler:standard
 ```
 
-Add outgoing Gmail credentials to Heroku's environment.
+Set your Twitter handle and consumer keys:
 
-```
-$ heroku config:add FOLLOWERS_GMAIL_USERNAME= ...
-$ heroku config:add FOLLOWERS_GMAIL_PASSWORD= ...
-```
-
-Configure email address that will receive follower updates.
-
-```
-$ heroku config:add FOLLOWERS_DELIVERY_EMAIL= ...
+```bash
+$ heroku config:set TWITTER_USERNAME=...
+$ heroku config:set TWITTER_CONSUMER_KEY=...
+$ heroku config:set TWITTER_CONSUMER_SECRET=...
 ```
 
-Migrate Heroku database.
+Set email credentials for notifications:
+
+```bash
+$ heroku config:set FOLLOWERS_DELIVERY_EMAIL=...
+$ heroku config:set FOLLOWERS_GMAIL_USERNAME=...
+$ heroku config:set FOLLOWERS_GMAIL_PASSWORD=...
+```
+
+Migrate Heroku database:
 
 ```
 $ heroku run rake db:migrate
 ```
 
-Add an hourly update task on Heroku for `bin/update`.
+Add an hourly update task on Heroku for `rake cron`:
 
 ```
 $ heroku addons:open scheduler:standard
