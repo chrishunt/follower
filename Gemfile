@@ -1,8 +1,7 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem 'rspec'
 gem 'rake'
 gem 'cane'
-gem 'oauth'
 gem 'pg'
 gem 'actionmailer'
