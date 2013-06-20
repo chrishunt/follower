@@ -1,15 +1,9 @@
 CONFIG = OpenStruct.new(
-  username:   'chrishunt',
+  username: ENV['TWITTER_USERNAME'],
+  consumer_key: ENV['TWITTER_CONSUMER_KEY'],
+  consumer_secret: ENV['TWITTER_CONSUMER_SECRET'],
 
-  url:        'https://twitter.com',
-  api:        'https://api.twitter.com/1',
-  api_token:  '',
-  api_secret: '',
-
-  oauth_token:  '',
-  oauth_secret: '',
-
-  deliver_email:  ENV['FOLLOWERS_DELIVERY_EMAIL'],
+  deliver_email: ENV['FOLLOWERS_DELIVERY_EMAIL'],
   gmail_username: ENV['FOLLOWERS_GMAIL_USERNAME'],
   gmail_password: ENV['FOLLOWERS_GMAIL_PASSWORD'],
 

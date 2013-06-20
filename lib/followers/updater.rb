@@ -21,7 +21,7 @@ module Followers
 
       if followers_changed?
         log 'Sending email...'
-        deliver_email
+        #deliver_email
       else
         log 'Not sending email'
       end
@@ -61,7 +61,7 @@ module Followers
     end
 
     def current_followers
-      @current_followers ||= twitter_client.followers(CONFIG.username)
+      @current_followers ||= twitter_client.follower_ids_for(CONFIG.username)
     end
 
     def previous_followers
@@ -100,7 +100,7 @@ module Followers
     end
 
     def compare(comparison, previous, current)
-      twitter_client.users_lookup(
+      twitter_client.users_for(
         user_comparison.send(comparison, previous, current)
       )
     end
