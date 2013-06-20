@@ -21,7 +21,7 @@ module Followers
 
       if followers_changed?
         log 'Sending email...'
-        #deliver_email
+        deliver_email
       else
         log 'Not sending email'
       end
