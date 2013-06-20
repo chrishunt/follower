@@ -1,4 +1,5 @@
 require 'net/http'
+require 'base64'
 require 'ostruct'
 require 'logger'
 require 'json'
