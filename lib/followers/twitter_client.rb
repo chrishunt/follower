@@ -26,6 +26,10 @@ module Followers
       users.flatten
     end
 
+    def url
+      'https://twitter.com'
+    end
+
     private
 
     def bearer_token
@@ -65,10 +69,6 @@ module Followers
 
     def users_lookup_uri_for(ids)
       URI.parse "#{api_url}/1.1/users/lookup.json?user_id=#{ids.join(',')}"
-    end
-
-    def url
-      'https://twitter.com'
     end
 
     def api_url
