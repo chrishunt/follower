@@ -35,7 +35,11 @@
         overflow: hidden;
         border-bottom: 1px solid #ccc;
       ">
-        <a href="<%= "#{CONFIG.url}/#{follower['screen_name']}" %>">
+        <a href="<%= [
+          Followers::TwitterClient.url,
+          follower['screen_name']
+        ].join('/') %>">
+
           <img
           src="<%= follower['profile_image_url'] %>"
           width="48"
@@ -50,7 +54,11 @@
         </a>
         <div>
           <a
-            href="<%= "#{CONFIG.url}/#{follower['screen_name']}" %>"
+            href="<%= [
+              Followers::TwitterClient.url,
+              follower['screen_name']
+            ].join('/') %>"
+
             style="
               color: #000;
               text-decoration: none;
