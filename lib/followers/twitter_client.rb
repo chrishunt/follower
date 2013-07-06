@@ -76,11 +76,11 @@ module Followers
     end
 
     def consumer_key
-      CONFIG.consumer_key
+      CONFIG.twitter_consumer_key
     end
 
     def consumer_secret
-      CONFIG.consumer_secret
+      CONFIG.twitter_consumer_secret
     end
   end
 end
