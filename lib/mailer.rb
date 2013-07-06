@@ -6,17 +6,21 @@ class Mailer < ActionMailer::Base
   self.view_paths = File.dirname(__FILE__)
 
   self.delivery_method = :smtp
+
   self.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'smtp.gmail.com',
-    authentication: :plain,
-    user_name: CONFIG.gmail_username,
-    password: CONFIG.gmail_password,
+    address: CONFIG.smtp_address,
+    port: CONFIG.smtp_port,
+    domain: CONFIG.smtp_address,
     enable_starttls_auto: true
   }
 
-  default sender: CONFIG.deliver_email, content_type: 'text/html'
+  self.smtp_settings.merge!({
+    authentication: :plain,
+    user_name: CONFIG.smtp_username,
+    password: CONFIG.smtp_password
+  }) unless CONFIG.smtp_username.empty? || CONFIG.smtp_password.empty?
+
+  default sender: CONFIG.from_email_address, content_type: 'text/html'
 
   def followers(username, total, lost, gained)
     @username = username
@@ -25,8 +29,8 @@ class Mailer < ActionMailer::Base
     @gained   = gained
 
     mail(
-      from: CONFIG.gmail_username,
-      to: CONFIG.deliver_email,
+      from: CONFIG.from_email_address,
+      to: CONFIG.to_email_address,
       subject: 'Your Twitter followers have changed.'
     )
   end

@@ -3,9 +3,13 @@ CONFIG = OpenStruct.new(
   twitter_consumer_key: ENV['TWITTER_CONSUMER_KEY'],
   twitter_consumer_secret: ENV['TWITTER_CONSUMER_SECRET'],
 
-  deliver_email: ENV['FOLLOWERS_DELIVERY_EMAIL'],
-  gmail_username: ENV['FOLLOWERS_GMAIL_USERNAME'],
-  gmail_password: ENV['FOLLOWERS_GMAIL_PASSWORD'],
+  to_email_address: ENV['FOLLOWERS_TO_EMAIL_ADDRESS'],
+  from_email_address: ENV['FOLLOWERS_FROM_EMAIL_ADDRESS'],
+
+  smtp_address: ENV['FOLLOWERS_SMTP_ADDRESS'],
+  smtp_port: ENV['FOLLOWERS_SMTP_PORT'],
+  smtp_username: ENV['FOLLOWERS_SMTP_USERNAME'],
+  smtp_password: ENV['FOLLOWERS_SMTP_PASSWORD'],
 
   database: URI.parse(ENV['DATABASE_URL']),
 
