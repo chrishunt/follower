@@ -33,12 +33,20 @@ $ heroku config:set TWITTER_CONSUMER_KEY=...
 $ heroku config:set TWITTER_CONSUMER_SECRET=...
 ```
 
-Set email credentials for notifications:
+Setup to/from email address:
 
 ```bash
-$ heroku config:set FOLLOWERS_DELIVERY_EMAIL=...
-$ heroku config:set FOLLOWERS_GMAIL_USERNAME=...
-$ heroku config:set FOLLOWERS_GMAIL_PASSWORD=...
+$ heroku config:set FOLLOWERS_TO_EMAIL_ADDRESS=...
+$ heroku config:set FOLLOWERS_FROM_EMAIL_ADDRESS=...
+```
+
+Setup SMTP credentials:
+
+```bash
+$ heroku config:set FOLLOWERS_SMTP_ADDRESS=..
+$ heroku config:set FOLLOWERS_SMTP_PORT=..
+$ heroku config:set FOLLOWERS_SMTP_USERNAME=..
+$ heroku config:set FOLLOWERS_SMTP_PASSWORD=..
 ```
 
 Migrate Heroku database:
