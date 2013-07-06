@@ -4,3 +4,4 @@ downloads
 .rvmrc
 log/*.log
 .ruby-version
+dev-env.sh
