@@ -33,7 +33,7 @@ module Followers
 
     def deliver_email
       Mailer.followers(
-        CONFIG.username,
+        CONFIG.twitter_username,
         current_followers.count,
         lost_followers,
         gained_followers
@@ -61,7 +61,9 @@ module Followers
     end
 
     def current_followers
-      @current_followers ||= twitter_client.follower_ids_for(CONFIG.username)
+      @current_followers ||= twitter_client.follower_ids_for(
+        CONFIG.twitter_username
+      )
     end
 
     def previous_followers
