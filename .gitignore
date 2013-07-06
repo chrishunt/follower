@@ -3,3 +3,4 @@
 downloads
 .rvmrc
 log/*.log
+.ruby-version
