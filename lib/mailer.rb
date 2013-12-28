@@ -30,7 +30,8 @@ class Mailer < ActionMailer::Base
 
     mail(
       to: CONFIG.to_email_address,
-      subject: 'Your Twitter followers have changed.'
+      subject: 'Your Twitter followers have changed.',
+      content_type: 'text/html'
     )
   end
 end
