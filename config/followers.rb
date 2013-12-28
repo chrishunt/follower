@@ -11,7 +11,12 @@ CONFIG = OpenStruct.new(
   smtp_username: ENV['FOLLOWERS_SMTP_USERNAME'],
   smtp_password: ENV['FOLLOWERS_SMTP_PASSWORD'],
 
-  database: URI.parse(ENV['DATABASE_URL']),
+  database: URI.parse(
+    if ENV['DATABASE_URL'].to_s.empty?
+      ENV['BOXEN_POSTGRESQL_URL'].to_s
+    else
+      ENV['DATABASE_URL'].to_s
+  end),
 
   log: STDOUT
 ).freeze
