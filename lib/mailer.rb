@@ -20,7 +20,7 @@ class Mailer < ActionMailer::Base
     password: CONFIG.smtp_password
   }) unless CONFIG.smtp_username.empty? || CONFIG.smtp_password.empty?
 
-  default sender: CONFIG.from_email_address, content_type: 'text/html'
+  default from: CONFIG.from_email_address
 
   def followers(username, total, lost, gained)
     @username = username
@@ -29,7 +29,6 @@ class Mailer < ActionMailer::Base
     @gained   = gained
 
     mail(
-      from: CONFIG.from_email_address,
       to: CONFIG.to_email_address,
       subject: 'Your Twitter followers have changed.'
     )
